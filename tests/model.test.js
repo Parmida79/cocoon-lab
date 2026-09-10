@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {simulate,defaults,G,fraction,csv} from '../src/model.js';
+test('free fall agrees with analytical energy and time',()=>{const r=simulate(defaults);assert.ok(Math.abs(r.energy-75*G*2)<1e-9);assert.ok(Math.abs(r.flight-Math.sqrt(4/G))<1e-9);});
+test('late inflation reduces available stroke',()=>{const a=simulate({...defaults,height:.3,latency:200,fill:500});assert.ok(a.ready>0&&a.ready<1);assert.ok(a.margin<0);assert.ok(a.stroke<defaults.thickness);});
+test('power and sensor faults inhibit every chamber',()=>{for(const failure of ['battery','sensor']){const r=simulate({...defaults,failure});assert.equal(r.capacity,0);assert.equal(r.residual,r.normalEnergy);assert.equal(fraction(r.p,10,'head'),0);}});
+test('puncture removes local capacity without pretending to redistribute loads',()=>{const r=simulate({...defaults,failure:'torso'});assert.equal(r.capacity,0);assert.equal(fraction(r.p,2,'pelvis'),1);});
+test('feet-first with omitted legs has no modeled cushioning',()=>{assert.equal(simulate({...defaults,orientation:'feet',legs:false}).capacity,0);});
+test('pedestrian cannot inflate before initial strike',()=>{const r=simulate({...defaults,scenario:'car'});assert.equal(fraction(r.p,.599,'head'),0);assert.equal(fraction(r.p,.6,'head'),0);assert.ok(r.energy>r.normalEnergy);});
+test('energy accounting closes and is bounded across extremes',()=>{for(const height of [.3,2,6])for(const pressure of [5,35,80]){const r=simulate({...defaults,height,pressure});assert.ok(r.absorbed<=r.capacity);assert.ok(r.residual>=0);assert.ok(Math.abs(r.absorbed+r.residual-r.normalEnergy)<1e-8);}});
+test('inputs reject NaN and unsupported ranges',()=>{assert.throws(()=>simulate({...defaults,mass:NaN}));assert.throws(()=>simulate({...defaults,fill:0}));});
+test('telemetry exports stable SI columns',()=>{const lines=csv(simulate(defaults)).split('\n');assert.ok(lines.length>100);assert.equal(lines[0].split(',').length,6);});
