@@ -12,3 +12,13 @@ Before presenting the scene publicly, run the local server from the README and c
 ## Rendering compatibility fix
 
 Five additional regression tests passed for unavailable GPU contexts, shader failure, context loss, CPU projection drawing and forced compatibility mode. Nine existing physics/model tests still pass. Tests use stub Canvas drawing calls; actual browser pixels and interaction remain unverified in this environment. The renderer now falls back to CPU triangle projection with simplified opaque shading, and the original failure reason appears in the renderer-status tooltip. GPU shadows and antialiasing are disabled to reduce driver demands.
+
+## Prediction Lab — 2026-09-11
+
+- Fifteen new prediction/data-split tests pass; nine existing physics tests and five rendering tests still pass (29 total).
+- JavaScript syntax and local module references checked.
+- Trained a regularized logistic model on 540 generated sessions, selected epoch/threshold on 180 validation sessions, and evaluated on 180 held-out generated sessions. Recording groups do not cross splits. See ai/artifacts/evaluation.json for all outputs.
+- The synthetic geometric baseline missed 2 of 80 contact sessions and generated 7 false-alert episodes over 0.125 hours of negative synthetic exposure. This fails any claim of assured pre-impact protection; the experiment is an infrastructure/baseline result.
+- No public or wearable dataset was downloaded; the configured proxy connection failed.
+- Local server sockets remain prohibited. Browser pixels, Web Worker behavior in a live browser, GitHub Pages deployment and physical hardware remain unverified.
+- The assistant is a deterministic evidence explainer, not an LLM.

@@ -4,6 +4,10 @@ An interactive 3D research demonstrator for modular, outward-deploying protectiv
 
 **This is a first-order engineering screening tool, not a validated crash simulator or protective product.** It does not calculate injury probability, HIC, neck loads or survival. The articulated-looking dummy has a prescribed contact pose, not solved joint dynamics. No physical device is controlled.
 
+## Prediction Lab
+
+Open `ai/` after starting the server, or choose **Prediction Lab** in the navigation. This addition includes a synthetic-trained collision score, a separate geometric forecast, uncertainty/late-detection states and an evidence-based explainer. It is not connected to the original suit animation or hardware. Real-world accuracy is not established. See [AI quickstart](docs/AI-QUICKSTART.md), [model card](docs/AI-MODEL-CARD.md) and [dataset/biomimicry research](docs/AI-RESEARCH.md).
+
 ## Run locally
 
 Requires Python 3 to serve files. No package installation or build step is needed.

@@ -1,0 +1,23 @@
+{
+  "id": "cocoon-collision-logistic-v0.1",
+  "featureNames": [
+    "range",
+    "closing",
+    "closest",
+    "ttc",
+    "fitError",
+    "speed"
+  ],
+  "weights": [
+    0.18172972608849572,
+    1.2565305208014408,
+    -2.974536999624046,
+    -1.6186497589940276,
+    0.03576735013330101,
+    0.26469660560564334
+  ],
+  "bias": 1.3247960277372686,
+  "trainingDomain": "synthetic_only",
+  "qualified": false,
+  "threshold": 0.43
+}

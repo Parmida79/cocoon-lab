@@ -18,11 +18,16 @@ jobs:
         with:
           node-version: '22'
       - run: npm test
+      - run: npm run test:ai
       - name: Assemble static site
         run: |
           mkdir -p dist
           cp index.html README.md dist/
           cp -R src vendor docs dist/
+          mkdir -p dist/ai
+          cp ai/*.html ai/*.css ai/*.js dist/ai/
+          cp -R ai/artifacts dist/ai/
+          cp ai/example-track.json dist/ai/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
